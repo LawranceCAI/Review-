@@ -372,10 +372,8 @@ async function main(){
       if(hintShown < hintMax){
         const b = blocks[hintOrder[hintShown]];
         const masked = maskHighlights(b.text, b.highlights);
-        const prefix = (hintShown === 0) ? "提示：
-" : "
+        const prefix = (hintShown === 0) ? "提示：\n" : "\n";
 
-";
         $("#answer").textContent += prefix + masked;
         show($("#answer"));
         hintShown += 1;

@@ -34,6 +34,16 @@ jobs:
         run: |
           python tools/build_cards.py "source/Key Review.docx" "web/data/cards.json"
 
+      - name: Debug: list web output
+        run: |
+          echo "=== web ==="
+          ls -la web || true
+          echo "=== web/data ==="
+          ls -la web/data || true
+          echo "=== check cards.json ==="
+          test -f web/data/cards.json && echo "cards.json exists ✅" || (echo "cards.json missing ❌" && exit 1)
+
+
       # ✅ 防呆：印出 schema/type/id，讓你一眼判斷是不是新版 direction 卡
       - name: Verify cards schema
         run: |

@@ -212,9 +212,7 @@ ${card.topic} 的「${card.direction}」是什麼？`;
   }else if(card.type === "cloze"){
     prompt = card.prompt;
   }else{
-    prompt = card.prompt + "
-
-（試著用自己的話複述）";
+    prompt = card.prompt + "\n（試著用自己的話複述）";
   }
 
   $("#prompt").textContent = prompt;

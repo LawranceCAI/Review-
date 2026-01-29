@@ -66,6 +66,18 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: Debug tree
+        run: |
+          python - << 'PY'
+          import os
+          for root, dirs, files in os.walk("web"):
+              if root.count(os.sep) - "web".count(os.sep) > 3:
+                  continue
+              print(root)
+              for f in sorted(files)[:50]:
+                  print("  -", f)
+          PY
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

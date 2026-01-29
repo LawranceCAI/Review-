@@ -78,6 +78,12 @@ jobs:
                   print("  -", f)
           PY
 
+      - name: Write deploy marker
+        run: |
+          mkdir -p web/data
+          echo "sha=$GITHUB_SHA" > web/deploy-marker.txt
+          echo "sha=$GITHUB_SHA" > web/data/deploy-marker.txt
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

@@ -5,6 +5,7 @@ GitHub Actions 會自動：
 1. 解析 Word → 產生 `web/data/cards.json`
 2. 部署 `web/` 到 GitHub Pages（手機可加入主畫面、離線可用）
 
+
 ---
 
 ## 一次性設定（只做一次）

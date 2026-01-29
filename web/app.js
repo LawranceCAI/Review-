@@ -190,12 +190,19 @@ function renderSessionCard(){
   hintShown = 0;
 
   if(card.type === "direction"){
-    $("#prompt").textContent = `${card.topic} — ${card.direction}
-
-${card.topic} 的「${card.direction}」是什麼？`;
+    $("#prompt").textContent =
+      `${card.topic} - ${card.direction}\n\n${card.topic} 的「${card.direction}」是什麼？`;
 
     const blocks = card.blocks || [];
     const n = blocks.length;
+
+    if (n === 0) {
+      $("#answer").textContent = "（這張卡目前沒有可用的提示內容）";
+      show($("#answer"));
+      $("#btnShow").textContent = "看完整答案";
+      return;
+    }
+
     hintOrder = [...Array(n).keys()].sort(() => Math.random()-0.5);
 
     $("#answer").textContent = "";

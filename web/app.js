@@ -384,10 +384,10 @@ async function main(){
         return;
       }
 
-      $("#answer").textContent = "完整答案：
-" + blocks.map(b => "• " + b.text).join("
-
-");
+    $("#answer").textContent =
+      "完整答案：\n" +
+      blocks.map(b => "• " + b.text).join("\n");
+      
       show($("#answer"));
       hide($("#btnShow"));
       show($("#gradeRow"));

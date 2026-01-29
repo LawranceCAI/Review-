@@ -10,7 +10,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: pages
   cancel-in-progress: true
 
 jobs:
@@ -34,17 +34,20 @@ jobs:
         run: |
           python tools/build_cards.py "source/Key Review.docx" "web/data/cards.json"
 
-      - name: Debug: list web output
+      - name: Debug list web output
         run: |
           echo "=== web ==="
           ls -la web || true
           echo "=== web/data ==="
           ls -la web/data || true
           echo "=== check cards.json ==="
-          test -f web/data/cards.json && echo "cards.json exists ✅" || (echo "cards.json missing ❌" && exit 1)
+          if [ -f web/data/cards.json ]; then
+            echo "cards.json exists"
+          else
+            echo "cards.json missing"
+            exit 1
+          fi
 
-
-      # ✅ 防呆：印出 schema/type/id，讓你一眼判斷是不是新版 direction 卡
       - name: Verify cards schema
         run: |
           python - << 'PY'
@@ -57,7 +60,7 @@ jobs:
           print("META:", meta)
           print("FIRST_CARD_TYPE:", first.get("type"))
           print("FIRST_CARD_ID:", first.get("id"))
-          print("CARD_COUNT:", meta.get("card_count"), " / cards_len:", len(cards))
+          print("CARD_COUNT:", meta.get("card_count"), "/ cards_len:", len(cards))
           PY
 
       - name: Setup Pages
@@ -66,7 +69,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "web"
+          path: web
 
   deploy:
     runs-on: ubuntu-latest
